@@ -1,0 +1,67 @@
+/* App.css */
+
+/* Container que vai dividir a tela em duas partes */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Lado esquerdo com o formulário de login */
+.left {
+  flex: 1; /* Ocupa metade da tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Cor de fundo para o lado esquerdo */
+}
+
+/* Formulário de login */
+.login-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50; /* Cor verde para o botão */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #45a049;
+}
+
+/* Lado direito com a imagem e fundo verde */
+.right {
+  flex: 1; /* Ocupa a outra metade da tela */
+  background-color: #2ecc71; /* Cor de fundo verde */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right img {
+  max-width: 80%; /* Ajusta o tamanho da imagem */
+  height: auto;
+}
