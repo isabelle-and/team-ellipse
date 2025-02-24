@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Assentamentos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Consulta de Assentamentos</h1>
+
+    <div class="search-container">
+        <input type="text" id="searchNome" placeholder="Buscar por Nome do Projeto">
+        <button id="btnBuscarNome">Buscar</button>
+        <input type="text" id="searchMunicipio" placeholder="Buscar por Município">
+        <button id="btnBuscarMunicipio">Buscar</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Projeto de Assentamento</th>
+                <th>Código SIPRA</th>
+                <th>Município</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+    </table>
+
+    <button id="btnExibirMais" style="display:none;">Exibir mais assentamentos</button>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
