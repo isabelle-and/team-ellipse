@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de XLSX para JSON</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        #output { white-space: pre-wrap; text-align: left; max-width: 800px; margin: auto; background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        input, button { margin: 10px; padding: 8px 15px; font-size: 16px; cursor: pointer; }
+        button { background-color: #28a745; color: white; border: none; border-radius: 5px; }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+    <h2>Conversor de XLSX para JSON</h2>
+    <input type="file" id="upload" accept=".xlsx">
+    <button id="download" style="display: none;">Baixar JSON</button>
+    <pre id="output"></pre>
+
+    <script>
+        let jsonData = null;
+        let fileName = "dados.json"; // Nome padrão do arquivo JSON
+
+        document.getElementById("upload").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            fileName = file.name.replace(".xlsx", ".json"); // Define o nome do JSON baseado no XLSX
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+
+                // Pegando a primeira aba da planilha
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+
+                // Convertendo para JSON
+                let rawData = XLSX.utils.sheet_to_json(sheet, { defval: null });
+
+                // Formatando e ajustando os dados
+                jsonData = rawData.map((row, index) => {
+                    let newRow = { ID: index + 1 }; // Adiciona o ID
+                    for (let key in row) {
+                        let value = row[key];
+
+                        // Verifica se o campo deve ser tratado como número
+                        const numericFields = [
+                            "Vagas Ociosas",
+                            "Capacidade de famílias do PA",
+                            "parcela lote",
+                            "perímetro (metros)",
+                            "quantidade de famílias assentadas no PA",
+                            "território sda/mda",
+                            "área (ha) desatualizada"
+                        ];
+
+                        if (numericFields.includes(key) && typeof value === "string") {
+                            // Remove caracteres não numéricos e converte para número
+                            let numericValue = parseFloat(value.replace(/[^0-9.,]/g, '').replace(',', '.'));
+                            newRow[key] = isNaN(numericValue) ? null : numericValue;
+                        } else if (key.toLowerCase().includes("data") && typeof value === "number" && XLSX.SSF.parse_date_code(value)) {
+                            // Converte campos de data
+                            let dateObj = XLSX.SSF.parse_date_code(value);
+                            let formattedDate = `${String(dateObj.d).padStart(2, "0")}/${String(dateObj.m).padStart(2, "0")}/${dateObj.y}`;
+                            newRow[key] = formattedDate;
+                        } else {
+                            newRow[key] = value;
+                        }
+                    }
+                    return newRow;
+                });
+
+                // Exibindo o JSON na tela formatado
+                document.getElementById("output").textContent = JSON.stringify(jsonData, null, 4);
+
+                // Mostra o botão de download
+                document.getElementById("download").style.display = "inline-block";
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById("download").addEventListener("click", function() {
+            if (!jsonData) return;
+
+            const jsonString = JSON.stringify(jsonData, null, 4);
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const a = document.createElement("a");
+
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            a.click();
+        });
+    </script>
+
+</body>
+</html>
