@@ -1,0 +1,141 @@
+/* Geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    overflow-x: hidden; /* Evita rolagem horizontal */
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Botões */
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Formulário Container */
+.form-container {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 90%; /* Ajuste para caber no monitor */
+    background-color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+/* Tabela */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Formulário de Assentamento em 4 colunas */
+#formContainer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Quatro colunas flexíveis */
+    gap: 15px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Grupos de campos */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Inputs no Formulário */
+.form-group input {
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Tamanhos específicos para os campos */
+.field-long {
+    grid-column: span 4; /* Campo ocupa as 4 colunas */
+}
+
+.field-medium {
+    grid-column: span 2; /* Campo ocupa 2 colunas */
+}
+
+.field-short {
+    grid-column: span 1; /* Campo ocupa 1 coluna */
+}
+
+/* Título do formulário */
+#formContainer h3 {
+    grid-column: span 4;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    #formContainer {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    }
+
+    .field-long {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 600px) {
+    #formContainer {
+        grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+    }
+
+    .field-long, .field-medium, .field-short {
+        grid-column: span 1;
+    }
+}

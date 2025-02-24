@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Assentamentos</title>
+    <link rel="stylesheet" href="crud_style.css">
+    <style>
+        /* Estilo para o cabeçalho */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .header img {
+            height: 60px; /* Altura da logo */
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho com logo e título -->
+    <div class="header">
+        <img src="LogoINCRA.png" alt="Logo INCRA"> <!-- Usando a imagem que você forneceu -->
+        <h1>Sistema de Cadastro de Assentamentos</h1>
+    </div>
+
+    <h3>Total de Assentamentos cadastrados: <span id="totalAssentamentos">0</span></h3>
+
+    <!-- Formulário para adicionar/editar assentamentos -->
+    <div class="form-container" id="formContainer" style="display:none;">
+        <h2 id="formTitle">Adicionar Assentamento</h2>
+        <input type="hidden" id="editIndex">
+        <label>Nome do Projeto:</label><input type="text" id="Nome do Projeto" required><br>
+        <label>CÓD SIPRA:</label><input type="text" id="CÓD SIPRA" required><br>
+        <label>Município:</label><input type="text" id="Município" required><br>
+        <button onclick="salvarAssentamento()">Salvar</button>
+        <button onclick="fecharFormulario()">Cancelar</button>
+    </div>
+
+    <h2>Lista de Assentamentos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Projeto</th>
+                <th>Código SIPRA</th>
+                <th>Município</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="assentamentoTable"></tbody>
+    </table>
+
+    <script src="crud_script.js"></script>
+</body>
+</html>
